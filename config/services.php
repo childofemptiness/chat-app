@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'http' => [
+
+        'verify' => false,
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

@@ -62,11 +62,13 @@ const Message = React.memo(({ chatId }) => {
       console.log('- - -');
 
       // Слушатель события
-      channel.bind('MessageEvent', function(data) {
+      channel.bind('MessageEvent', function() {
         
-        console.log('Новое сообщение: ', data.message.content);
+        // console.log('Новое сообщение: ', data.message.content);
+
+        console.log(555);
         
-        setMessages((prevMessages) => [...prevMessages, data.message]);
+        // setMessages((prevMessages) => [...prevMessages, data.message]);
       });
 
   

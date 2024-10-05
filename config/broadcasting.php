@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_CONNECTION', 'null'),
+    'default' => env('BROADCAST_CONNECTION', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
                 'host' => env('REVERB_HOST'),
                 'port' => env('REVERB_PORT', 443),
                 'scheme' => env('REVERB_SCHEME', 'https'),
-                'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
+                'useTLS' => true,
             ],
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
@@ -48,19 +48,25 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'key' => env('VITE_PUSHER_APP_KEY'),
+            'secret' => env('VITE_PUSHER_APP_SECRET'),
+            'app_id' => env('VITE_PUSHER_APP_ID'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'host' => env('PUSHER_HOST') ?: 'api-'.env('PUSHER_APP_CLUSTER', 'mt1').'.pusher.com',
-                'port' => env('PUSHER_PORT', 443),
-                'scheme' => env('PUSHER_SCHEME', 'https'),
-                'encrypted' => true,
-                'useTLS' => true,
+                'cluster' => env('VITE_PUSHER_APP_CLUSTER', default: 'eu'),
+                'host' => env('VITE_PUSHER_HOST') ?: 'api-'.env('VITE_PUSHER_APP_CLUSTER', 'eu').'.VITE_PUSHER.com',
+                'port' => env('VITE_PUSHER_PORT', 80),
+                'scheme' => env('VITE_PUSHER_SCHEME', 'http'),
+                'useTLS' => false,
+
+                'curl_options' => [
+
+                CURLOPT_CAINFO => 'C:\\cacert.pem',
+                ],
             ],
             'client_options' => [
-                // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
+                
+                // CURLOPT_SSL_VERIFYHOST => 0,
+                // CURLOPT_SSL_VERIFYPEER => 0,
             ],
         ],
 
